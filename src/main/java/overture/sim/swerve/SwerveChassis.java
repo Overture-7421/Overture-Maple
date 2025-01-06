@@ -7,6 +7,7 @@ import static edu.wpi.first.units.Units.Kilograms;
 import static edu.wpi.first.units.Units.Volts;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.system.plant.DCMotor;
 import org.ironmaple.simulation.drivesims.COTS;
@@ -41,7 +42,12 @@ public class SwerveChassis extends SwerveDriveSimulation {
                     DCMotor.getFalcon500(1), // Steer motor is a Falcon 500
                     COTS.WHEELS.COLSONS.cof)) // Use the COF for Colson Wheels
             // Configures the track length and track width (spacing between swerve modules)
-            .withTrackLengthTrackWidth(Inches.of(24), Inches.of(24))
+            .withCustomModuleTranslations(new Translation2d[] {
+                new Translation2d(Inches.of(7.625), Inches.of(10.375)),
+                new Translation2d(Inches.of(7.625), Inches.of(-10.375)),
+                new Translation2d(Inches.of(-13.125), Inches.of(-10.375)),
+                new Translation2d(Inches.of(-13.125), Inches.of(10.375)),
+            })
             // Configures the bumper size (dimensions of the robot bumper)
             .withBumperSize(Inches.of(30), Inches.of(30));
 
