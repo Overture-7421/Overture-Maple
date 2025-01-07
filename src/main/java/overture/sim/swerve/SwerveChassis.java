@@ -43,10 +43,10 @@ public class SwerveChassis extends SwerveDriveSimulation {
                     COTS.WHEELS.COLSONS.cof)) // Use the COF for Colson Wheels
             // Configures the track length and track width (spacing between swerve modules)
             .withCustomModuleTranslations(new Translation2d[] {
-                new Translation2d(Inches.of(7.625), Inches.of(10.375)),
-                new Translation2d(Inches.of(7.625), Inches.of(-10.375)),
-                new Translation2d(Inches.of(-13.125), Inches.of(-10.375)),
-                new Translation2d(Inches.of(-13.125), Inches.of(10.375)),
+                new Translation2d(Inches.of(7.625), Inches.of(10.375)), // Front Left
+                new Translation2d(Inches.of(7.625), Inches.of(-10.375)), // Front Right
+                new Translation2d(Inches.of(-13.125), Inches.of(10.375)), // Back Left
+                new Translation2d(Inches.of(-13.125), Inches.of(-10.375)) // Back Right
             })
             // Configures the bumper size (dimensions of the robot bumper)
             .withBumperSize(Inches.of(30), Inches.of(30));
