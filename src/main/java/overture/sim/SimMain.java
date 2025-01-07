@@ -7,8 +7,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 
 
 import org.ironmaple.simulation.SimulatedArena;
-import org.ironmaple.simulation.seasonspecific.crescendo2024.Arena2024Crescendo;
-import org.ironmaple.simulation.seasonspecific.crescendo2024.CrescendoNoteOnField;
+import org.ironmaple.simulation.seasonspecific.reefscape2025.Arena2025Reefscape;
+import org.ironmaple.simulation.seasonspecific.reefscape2025.ReefscapeCoralAlgaeStack;
 import org.littletonrobotics.junction.Logger;
 import overture.sim.swerve.SwerveChassis;
 
@@ -21,11 +21,13 @@ public class SimMain {
         chassis = new SwerveChassis("Offseason 2024", new Pose2d(3, 3, new Rotation2d()));
 
         // Arena
-        SimulatedArena.overrideInstance(new Arena2024Crescendo());
+        SimulatedArena.overrideInstance(new Arena2025Reefscape());
         arena = SimulatedArena.getInstance();
 
         // Add game pieces to Arena
-        arena.addGamePiece(new CrescendoNoteOnField(new Translation2d(3, 3)));
+        // arena.addGamePiece(new ReefscapeCoralAlgaeStack(new Translation2d(3, 3)));
+
+		arena.placeGamePiecesOnField();
 
         // Add mechanisms to Arena
         arena.addDriveTrainSimulation(chassis);
