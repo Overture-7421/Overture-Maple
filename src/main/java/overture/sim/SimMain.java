@@ -14,29 +14,27 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableListener;
 import edu.wpi.first.networktables.StructArraySubscriber;
 import edu.wpi.first.wpilibj.DriverStation;
-import overture.sim.swerve.SwerveChassis;
+import overture.sim.robots.Reefscape2025;
+import overture.sim.robots.SimBaseRobot;
 
 public class SimMain {
 	static SimulatedArena arena = null;
-	static SwerveChassis chassis = null;
+	static SimBaseRobot robot = null;
 
 	NetworkTableListener autoLoad = null;
 
 	public void Initialize() {
 		// Mechanisms
-		chassis = new SwerveChassis("Offseason 2024", new Pose2d(3, 3, new Rotation2d()));
+		robot = new Reefscape2025("Reefscape2025", new Pose2d(3, 3, new Rotation2d()));
 
 		// Arena
 		SimulatedArena.overrideInstance(new Arena2025Reefscape());
 		arena = SimulatedArena.getInstance();
 
-		// Add game pieces to Arena
-		// arena.addGamePiece(new ReefscapeCoralAlgaeStack(new Translation2d(3, 3)));
-
 		arena.resetFieldForAuto();
 
 		// Add mechanisms to Arena
-		arena.addDriveTrainSimulation(chassis);
+		arena.addDriveTrainSimulation(robot.GetDriveTrain());
 
 		autoLoad = NetworkTableListener.createListener(
 				NetworkTableInstance.getDefault().getStringTopic("/PathPlanner/activePath"),
@@ -49,7 +47,7 @@ public class SimMain {
 					.getStructArrayTopic("activePath", Pose2d.struct).subscribe(new Pose2d[1]);
 			Pose2d initPose = initPoseArray.get()[0];
 
-			chassis.setSimulationWorldPose(initPose);
+			robot.GetDriveTrain().setSimulationWorldPose(initPose);
 			arena.resetFieldForAuto();
 			DriverStation.reportWarning("Auto Loaded!", false);
 
@@ -60,9 +58,9 @@ public class SimMain {
 
 	public void Periodic() {
 		arena.simulationPeriodic();
-		chassis.Update();
+		robot.Update();
 
-		Logger.recordOutput("FieldSimulation/RobotPosition", chassis.getSimulatedDriveTrainPose());
+		Logger.recordOutput("FieldSimulation/RobotPosition", robot.GetDriveTrain().getSimulatedDriveTrainPose());
 		Logger.recordOutput("FieldSimulation/Algae",
 				SimulatedArena.getInstance().getGamePiecesArrayByType("Algae"));
 		Logger.recordOutput("FieldSimulation/Coral",
