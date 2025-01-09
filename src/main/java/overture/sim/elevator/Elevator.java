@@ -7,8 +7,6 @@ import static edu.wpi.first.units.Units.Revolutions;
 import static edu.wpi.first.units.Units.RevolutionsPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
-import java.util.Timer;
-
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.geometry.Pose3d;
@@ -17,7 +15,6 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
-import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import overture.sim.NTMotor;
 import overture.sim.robots.SimBaseRobot;

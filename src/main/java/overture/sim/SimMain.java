@@ -4,7 +4,6 @@ import java.util.EnumSet;
 
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.seasonspecific.reefscape2025.Arena2025Reefscape;
-import org.ironmaple.simulation.seasonspecific.reefscape2025.ReefscapeCoralAlgaeStack;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -65,9 +64,5 @@ public class SimMain {
 				SimulatedArena.getInstance().getGamePiecesArrayByType("Algae"));
 		Logger.recordOutput("FieldSimulation/Coral",
 				SimulatedArena.getInstance().getGamePiecesArrayByType("Coral"));
-		Logger.recordOutput("FieldSimulation/StackedAlgae",
-				ReefscapeCoralAlgaeStack.getStackedAlgaePoses());
-		Logger.recordOutput("FieldSimulation/StackedCoral",
-				ReefscapeCoralAlgaeStack.getStackedCoralPoses());
 	}
 }
