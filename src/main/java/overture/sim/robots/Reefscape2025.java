@@ -48,7 +48,7 @@ public class Reefscape2025 extends SimBaseRobot {
         originalRobotToArm = new Transform3d(Meters.of(0.1), Meters.of(0), Meters.of(0.5), new Rotation3d());
         arm = new Arm(this,
                 new Transform3d(Meters.of(0.1), Meters.of(0), Meters.of(0.5), new Rotation3d()),
-                new Rotation3d(0, 0, 1), // Arm rotations around this axis
+                new Rotation3d(1, 0, 0), // Arm rotations around this axis
                 "arm",
                 DCMotor.getFalcon500(1),
                 40.0,
