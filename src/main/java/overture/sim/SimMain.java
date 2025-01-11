@@ -60,6 +60,10 @@ public class SimMain {
 		robot.Update();
 
 		Logger.recordOutput("FieldSimulation/RobotPosition", robot.GetDriveTrain().getSimulatedDriveTrainPose());
+
+		Logger.recordOutput("FieldSimulation/FinalComponentPoses", robot.GetMechanismPoses());
+		Logger.recordOutput("FieldSimulation/ZeroedComponentPoses", robot.GetZeroedMechanismPoses());
+
 		Logger.recordOutput("FieldSimulation/Algae",
 				SimulatedArena.getInstance().getGamePiecesArrayByType("Algae"));
 		Logger.recordOutput("FieldSimulation/Coral",
