@@ -31,7 +31,7 @@ public class Elevator extends SimMechanism {
    * Creates a new Elevator
    * @param robot The robot that this elevator is attached to
    * @param robotToElevator The transform from the robot to the elevator
-   * @param slideAxis The axis of the elevator moves on
+   * @param slideAxis The axis the elevator moves on
    * @param name The name of the elevator
    * @param gearbox The gearbox of the elevator
    * @param gearing The gearing of the elevator
