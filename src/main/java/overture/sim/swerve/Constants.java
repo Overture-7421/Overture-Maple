@@ -32,10 +32,10 @@ public class Constants {
                 .withGyro(COTS.ofPigeon2())
                 .withSwerveModule(Overture2024MK4i())
                 .withCustomModuleTranslations(new Translation2d[] {
-                    new Translation2d(Inches.of(7.625), Inches.of(10.375)), // Front Left
-                    new Translation2d(Inches.of(7.625), Inches.of(-10.375)), // Front Right
-                    new Translation2d(Inches.of(-13.125), Inches.of(10.375)), // Back Left
-                    new Translation2d(Inches.of(-13.125), Inches.of(-10.375)) // Back Right
+                    new Translation2d(Inches.of(10.375), Inches.of(10.375)), // Front Left
+                    new Translation2d(Inches.of(10.375), Inches.of(-10.375)), // Front Right
+                    new Translation2d(Inches.of(-10.375), Inches.of(10.375)), // Back Left
+                    new Translation2d(Inches.of(-10.375), Inches.of(-10.375)) // Back Right
                 })
                 .withBumperSize(Inches.of(30), Inches.of(30));
     }
