@@ -1,9 +1,12 @@
 package overture.sim;
 
+import static edu.wpi.first.units.Units.Seconds;
+
 import java.util.EnumSet;
 
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.seasonspecific.reefscape2025.Arena2025Reefscape;
+import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -22,13 +25,15 @@ public class SimMain {
 
 	NetworkTableListener autoLoad = null;
 
-	public void Initialize() {
+	public void Initialize(LoggedRobot loggedRobot) {
 		// Mechanisms
 		robot = new Reefscape2025("Reefscape2025", new Pose2d(3, 3, new Rotation2d()));
 
 		// Arena
 		SimulatedArena.overrideInstance(new Arena2025Reefscape());
+		SimulatedArena.overrideSimulationTimings(Seconds.of(loggedRobot.getPeriod()), 300);
 		arena = SimulatedArena.getInstance();
+
 
 		arena.resetFieldForAuto();
 

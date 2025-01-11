@@ -14,11 +14,12 @@ public class Robot extends LoggedRobot {
     SimMain simMain = new SimMain();
 
     public Robot() {
+        super(0.01);
         Logger.recordMetadata("Overture2024", "Maple"); // Set a metadata value
         Logger.addDataReceiver(new NT4Publisher()); // Save outputs to a new log
         Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may be added.
 
-        simMain.Initialize();
+        simMain.Initialize(this);
     }
 
     @Override

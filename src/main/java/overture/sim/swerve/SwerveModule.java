@@ -34,7 +34,7 @@ public class SwerveModule {
         steerNtMotor = new NTMotor(new NTMotor.Config() {
             {
                 Name = robotName + "/motors/" + moduleName + "_rotation";
-                VoltageApplied = (voltage) -> steerMotor.requestVoltage(voltage);
+                VoltageApplied = (voltage) -> steerMotor.requestVoltage(voltage.times(0.85));
                 EncoderPosition = () -> moduleSimulation.getSteerRelativeEncoderPosition();
                 EncoderSpeed = () -> moduleSimulation.getSteerRelativeEncoderVelocity();
                 Current = () -> moduleSimulation.getSteerMotorSupplyCurrent();
