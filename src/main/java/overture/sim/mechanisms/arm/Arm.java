@@ -15,6 +15,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Distance;
+import overture.sim.NTCANCoder;
 import overture.sim.NTMotor;
 import overture.sim.mechanisms.SimMechanism;
 import overture.sim.robots.SimBaseRobot;
@@ -25,6 +26,7 @@ import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
  */
 public class Arm extends SimMechanism {
     private NTMotor motor;
+    private NTCANCoder cancoder;
     private SingleJointedArmSim singleJointedArmSim;
     private Rotation3d rotationAxis;
 
@@ -69,12 +71,23 @@ public class Arm extends SimMechanism {
               Inverted = inverted;
             }
           });
+
+          cancoder = new NTCANCoder(new NTCANCoder.Config() {
+            {
+                Name = robot.GetName() + "/cancoders/" + name;
+                EncoderPosition =
+                        () -> Radians.of(singleJointedArmSim.getAngleRads());
+                EncoderSpeed = () -> RadiansPerSecond.of(singleJointedArmSim.getVelocityRadPerSec());
+                Inverted = inverted;
+            }
+        });
     }
 
     @Override
     public void Update() {
         singleJointedArmSim.update(GetTimeStep());
         motor.Update();
+        cancoder.Update();
     }
 
     @Override
