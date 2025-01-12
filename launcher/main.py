@@ -1,11 +1,8 @@
 import subprocess
-import signal
 import os
 import sys
-import time
 import atexit
 import psutil
-import pyautogui
 from colorama import init, Fore, Style
 
 # Initialize colorama
