@@ -1,0 +1,192 @@
+{
+  "hubs": [
+    {
+      "x": -8,
+      "y": -8,
+      "width": 2576,
+      "height": 1408,
+      "state": {
+        "sidebar": {
+          "width": 500,
+          "expanded": [
+            "/AdvantageKit/RealOutputs",
+            "/AdvantageKit/RealOutputs/SimulatedChassis",
+            "/photonvision/testCamera",
+            "/photonvision/testCamera/rawBytes",
+            "/photonvision/testCamera/rawBytes/targets",
+            "/photonvision/Global_Shutter_Camera",
+            "/photonvision/Global_Shutter_Camera/rawBytes",
+            "/photonvision/Global_Shutter_Camera/rawBytes/targets",
+            "/photonvision/Global_Shutter_Camera/rawBytes/targets/0",
+            "/photonvision/Global_Shutter_Camera/rawBytes/targets/0/bestCameraToTarget",
+            "/photonvision/Global_Shutter_Camera/rawBytes/targets/0/bestCameraToTarget/translation",
+            "/photonvision/photonvision",
+            "/photonvision/photonvision/Global_Shutter_Camera",
+            "/photonvision/Global_Shutter_Camera/targetPose/translation",
+            "/photonvision/Global_Shutter_Camera/targetPose/rotation",
+            "/photonvision/Global_Shutter_Camera/targetPose",
+            "/AprilTags/Global_Shutter_Camera",
+            "/AdvantageKit/RealOutputs/FieldSimulation",
+            "/AdvantageKit/RealOutputs/FieldSimulation/FinalComponentPoses/0",
+            "/AdvantageKit/RealOutputs/FieldSimulation/FinalComponentPoses/1",
+            "/AdvantageKit/RealOutputs/FieldSimulation/FinalComponentPoses/1/translation",
+            "/AdvantageKit/RealOutputs/FieldSimulation/FinalComponentPoses/0/rotation",
+            "/AdvantageKit/RealOutputs/FieldSimulation/FinalComponentPoses/0/translation",
+            "/AdvantageKit/RealOutputs/FieldSimulation/FinalComponentPoses/1/rotation",
+            "/AdvantageKit/RealOutputs/FieldSimulation/FinalComponentPoses/0/rotation/q",
+            "/AdvantageKit/RealOutputs/FieldSimulation/FinalComponentPoses/1/rotation/q",
+            "/SmartDashboard/VisionSystemSim-main/Sim Field",
+            "/SmartDashboard/VisionSystemSim-main/Sim Field/visibleTargetPoses",
+            "/AprilTags",
+            "/AprilTags/Global_Shutter_Camera/VisionPose2d",
+            "/AprilTags/Global_Shutter_Camera/TargetPoses",
+            "/SmartDashboard/SwerveChassis",
+            "/SmartDashboard/SwerveChassis/Modules/Back Left",
+            "/AdvantageKit",
+            "/AdvantageKit/RealOutputs/Reefscape2025",
+            "/AdvantageKit/RealOutputs/Reefscape2025/SimulatedChassis",
+            "/SmartDashboard",
+            "/SmartDashboard/SwerveChassis/Odometry",
+            "/SmartDashboard/SwerveChassis/Odometry/Pose"
+          ]
+        },
+        "tabs": {
+          "selected": 2,
+          "tabs": [
+            {
+              "type": 0,
+              "title": "",
+              "controller": null,
+              "controllerUUID": "xppzwxhy1d5wplt2987psk2706ir3o44",
+              "renderer": "#/",
+              "controlsHeight": 0
+            },
+            {
+              "type": 1,
+              "title": "Line Graph",
+              "controller": {
+                "leftSources": [],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "rightUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "4onakjr3m77aok4wphl8ycpmol4avp04",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 3,
+              "title": "3D Field",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/FieldSimulation/RobotPosition",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "2024 KitBot"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "NT:/AprilTags/Global_Shutter_Camera/TargetPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "NT:/AprilTags/Global_Shutter_Camera/VisionPose2d",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "2024 KitBot",
+                      "color": "#ffff00"
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "NT:SmartDashboard/SwerveChassis/Odometry/Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "2024 KitBot",
+                      "color": "#00ff00"
+                    }
+                  }
+                ],
+                "game": "2025 Field",
+                "origin": "blue"
+              },
+              "controllerUUID": "5479c4rqv0wwgnejmgk7ot45fjw0b6y1",
+              "renderer": {
+                "cameraIndex": -1,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  8.718997783430721,
+                  4.34925632022682,
+                  -3.1754300771352453
+                ],
+                "cameraTarget": [
+                  0.4387499429080397,
+                  -1.8415931748737733,
+                  -0.5769361602392868
+                ]
+              },
+              "controlsHeight": 154
+            },
+            {
+              "type": 9,
+              "title": "Swerve",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "states",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/Reefscape2025/SimulatedChassis/ModuleStates",
+                    "logType": "SwerveModuleState[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff0000",
+                      "arrangement": "0,1,2,3"
+                    }
+                  },
+                  {
+                    "type": "rotation",
+                    "logKey": "NT:SmartDashboard/SwerveChassis/Odometry/Pose/rotation",
+                    "logType": "Rotation2d",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "maxSpeed": 5,
+                "sizeX": 0.65,
+                "sizeY": 0.65,
+                "orientation": 1
+              },
+              "controllerUUID": "sq76ugzrgnxoxtxh49c7aanrv641d643",
+              "renderer": null,
+              "controlsHeight": 200
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "4.1.0"
+}
