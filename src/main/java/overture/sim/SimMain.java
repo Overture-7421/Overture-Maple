@@ -31,7 +31,7 @@ public class SimMain {
 
 		// Arena
 		SimulatedArena.overrideInstance(new Arena2025Reefscape());
-		SimulatedArena.overrideSimulationTimings(Seconds.of(loggedRobot.getPeriod()), 300);
+		SimulatedArena.overrideSimulationTimings(Seconds.of(loggedRobot.getPeriod()), 50);
 		arena = SimulatedArena.getInstance();
 
 
