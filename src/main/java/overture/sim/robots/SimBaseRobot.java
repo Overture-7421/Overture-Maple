@@ -1,5 +1,7 @@
 package overture.sim.robots;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.ironmaple.simulation.drivesims.AbstractDriveTrainSimulation;
@@ -20,11 +22,27 @@ public abstract class SimBaseRobot {
     }
 
     public Pose3d[] GetMechanismPoses(){
-        return GetMechanisms().stream().map(SimMechanism::GetPose3d).toArray(Pose3d[]::new);
+        ArrayList<Pose3d> poses = new ArrayList<>();
+        
+        for (SimMechanism mechanism : GetMechanisms()) {
+            for (Pose3d pose : mechanism.GetPoses3d()) {
+                poses.add(pose);
+            }
+        }
+
+        return poses.toArray(Pose3d[]::new);
     }
 
     public Pose3d[] GetZeroedMechanismPoses(){
-        return GetMechanisms().stream().map(mechanism -> new Pose3d()).toArray(Pose3d[]::new);
+        ArrayList<Pose3d> poses = new ArrayList<>();
+        
+        for (SimMechanism mechanism : GetMechanisms()) {
+            for (Pose3d pose : mechanism.GetPoses3d()) {
+                poses.add(new Pose3d());
+            }
+        }
+
+        return poses.toArray(Pose3d[]::new);
     }
 
     public abstract void Update();

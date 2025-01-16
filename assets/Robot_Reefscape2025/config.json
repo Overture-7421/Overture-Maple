@@ -1,0 +1,77 @@
+{
+    "name": "Reefscape2025",
+    "rotations": [
+        {
+            "axis": "x",
+            "degrees": 90
+        }
+    ],
+    "position": [
+        0,
+        0,
+        0
+    ],
+    "cameras": [],
+    "components": [
+        { 
+            "_comment": "Elevator First Stage",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                0,
+                0,
+                -0.126
+            ]
+        },
+        { 
+            "_comment": "Elevator Carriage",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                0,
+                0,
+                -0.121
+            ]
+        },
+        { 
+            "_comment": "Arm",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                -0.065,
+                0,
+                -0.39
+            ]
+        },
+        { 
+            "_comment": "Arm Rotator",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                },
+                {
+                    "axis": "z",
+                    "degrees": 29
+                }
+            ],
+            "zeroedPosition": [
+                -0.05,
+                -0.03,
+                -0.325
+            ]
+        }
+    ]
+}

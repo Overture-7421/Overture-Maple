@@ -1,5 +1,7 @@
 package overture.sim.mechanisms;
 
+import java.util.List;
+
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Transform3d;
 
@@ -28,5 +30,5 @@ public abstract class SimMechanism {
 
     public abstract void Update();
 
-    public abstract Pose3d GetPose3d();
+    public abstract List<Pose3d> GetPoses3d();
 }

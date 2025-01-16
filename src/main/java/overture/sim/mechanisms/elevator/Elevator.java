@@ -19,14 +19,30 @@ import overture.sim.NTMotor;
 import overture.sim.mechanisms.SimMechanism;
 import overture.sim.robots.SimBaseRobot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Simulates an elevator mechanism
  */
 public class Elevator extends SimMechanism {
+  class Stage {
+    private double heightFactor;
+
+    public Stage(int stageNumber, int totalStages) {
+      this.heightFactor = ((double) stageNumber )/ ((double) totalStages);
+    }
+
+    public Pose3d GetPose3d() {
+      double height = elevatorSim.getPositionMeters() * heightFactor;
+      return new Pose3d(Meters.of(height * slideAxis.getX()), Meters.of(height * slideAxis.getY()), Meters.of(height * slideAxis.getZ()), new Rotation3d());
+    }
+    
+  }
   private NTMotor motor;
   private ElevatorSim elevatorSim;
   private Translation3d slideAxis;
-
+  private List<Stage> stages;
   /**
    * Creates a new Elevator
    * @param robot The robot that this elevator is attached to
@@ -53,6 +69,7 @@ public class Elevator extends SimMechanism {
       Distance minHeightMeters,
       Distance maxHeightMeters,
       Distance startingHeightMeters,
+      int stageCount,
       boolean inverted) {
     super(new Transform3d(robotToElevator.getTranslation(), robotToElevator.getRotation()));
     elevatorSim = new ElevatorSim(gearbox, gearing, carriageMassKg.in(Kilograms), drumRadiusMeters.in(Meters),
@@ -70,6 +87,13 @@ public class Elevator extends SimMechanism {
         Inverted = inverted;
       }
     });
+    
+    assert stageCount > 0;
+
+    stages = new ArrayList<Stage>();
+    for (int i = 1; i < stageCount; i++) {
+      stages.add(new Stage(i, stageCount));
+    }
   }
 
   @Override
@@ -79,8 +103,15 @@ public class Elevator extends SimMechanism {
   }
 
   @Override
-  public Pose3d GetPose3d() {
-    return new Pose3d().transformBy(GetRobotToMechanism()).transformBy(
-        new Transform3d(Meters.of(elevatorSim.getPositionMeters() * slideAxis.getX()), Meters.of(elevatorSim.getPositionMeters() * slideAxis.getY()), Meters.of(elevatorSim.getPositionMeters() * slideAxis.getZ()), new Rotation3d()));
+  public List<Pose3d> GetPoses3d() {
+    List<Pose3d> poses = new ArrayList<>();
+    poses.add(new Pose3d(Meters.of(elevatorSim.getPositionMeters() * slideAxis.getX()), 
+                         Meters.of(elevatorSim.getPositionMeters() * slideAxis.getY()), 
+                         Meters.of(elevatorSim.getPositionMeters() * slideAxis.getZ()), 
+                         new Rotation3d()).transformBy(GetRobotToMechanism()));
+    for (Stage stage : stages) {
+        poses.add(stage.GetPose3d().transformBy(GetRobotToMechanism()));
+    }
+    return poses;
   }
 }

@@ -30,15 +30,8 @@ gradle_command = f'gradlew.bat simulateJavaRelease -Dorg.gradle.java.home={users
 print(Fore.YELLOW + Style.BRIGHT + "Starting Maple... Please wait" + Style.RESET_ALL)
 gradle_process = subprocess.Popen(gradle_command, shell=True)
 
-# Start AdvantageScope
-scope_command = f'"{users_dir}\\wpilib\\2025\\advantagescope\\AdvantageScope (WPILib).exe"'
-
-print(Fore.YELLOW + Style.BRIGHT + "Starting AdvantageScope... Please wait" + Style.RESET_ALL)
-advantage_scope_process = subprocess.Popen(scope_command, shell=True)
-
 # Wait for AdvantageScope process to complete
-advantage_scope_process.wait()
-print(Fore.YELLOW + Style.BRIGHT + "AdvantageScope exited" + Style.RESET_ALL)
+gradle_process.wait()
 
 # Ensure the script exits cleanly
 sys.exit(0)

@@ -9,6 +9,8 @@ import static edu.wpi.first.units.Units.Revolutions;
 import static edu.wpi.first.units.Units.Rotation;
 import static edu.wpi.first.units.Units.Volts;
 
+import java.util.List;
+
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -56,10 +58,11 @@ public class Arm extends SimMechanism {
             Angle minAngle,
             Angle maxAngle,
             Angle startingAngle,
+            boolean gravity,
             boolean inverted) {
         super(new Transform3d(robotToArm.getTranslation(), robotToArm.getRotation()));
         this.rotationAxis = rotationAxis;
-        singleJointedArmSim = new SingleJointedArmSim(gearbox, gearing, jMomentofIntertia, armLength.in(Meters), minAngle.in(Radians), maxAngle.in(Radians), true, startingAngle.in(Radians));
+        singleJointedArmSim = new SingleJointedArmSim(gearbox, gearing, jMomentofIntertia, armLength.in(Meters), minAngle.in(Radians), maxAngle.in(Radians), gravity, startingAngle.in(Radians));
 
         motor = new NTMotor(new NTMotor.Config() {
             {
@@ -91,7 +94,7 @@ public class Arm extends SimMechanism {
     }
 
     @Override
-    public Pose3d GetPose3d() {
+    public List<Pose3d> GetPoses3d() {
         // Calculate the rotation based on the state of singleJointedArmSim and the given rotation axis
         Rotation3d rotation = new Rotation3d(
             rotationAxis.getX() * singleJointedArmSim.getAngleRads(),
@@ -99,6 +102,6 @@ public class Arm extends SimMechanism {
             rotationAxis.getZ() * singleJointedArmSim.getAngleRads()
         );
 
-        return new Pose3d().transformBy(GetRobotToMechanism()).transformBy(new Transform3d(Meters.of(0), Meters.of(0), Meters.of(0), rotation));
+        return List.of(new Pose3d().transformBy(GetRobotToMechanism()).transformBy(new Transform3d(Meters.of(0), Meters.of(0), Meters.of(0), rotation)));
     }
 }

@@ -10,6 +10,7 @@ import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTableEvent;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -65,7 +66,7 @@ public class SimMain {
 		robot.Update();
 
 		Logger.recordOutput("FieldSimulation/RobotPosition", robot.GetDriveTrain().getSimulatedDriveTrainPose());
-
+		Logger.recordOutput("FieldSimulation/ZeroRobotPosition", new Pose3d());
 		Logger.recordOutput("FieldSimulation/FinalComponentPoses", robot.GetMechanismPoses());
 		Logger.recordOutput("FieldSimulation/ZeroedComponentPoses", robot.GetZeroedMechanismPoses());
 

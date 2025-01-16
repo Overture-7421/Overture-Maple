@@ -6,10 +6,10 @@ import static edu.wpi.first.units.Units.Meters;
 
 import java.util.List;
 
-import org.dyn4j.geometry.Rotation;
 import org.ironmaple.simulation.drivesims.AbstractDriveTrainSimulation;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -23,8 +23,8 @@ import overture.sim.swerve.SwerveChassis;
 public class Reefscape2025 extends SimBaseRobot {
     SwerveChassis driveTrain;
     Elevator elevator;
-    Arm arm;
-    Transform3d originalRobotToArm;
+    Arm armCarrier, armRotator;
+    Transform3d originalRobotToArmCarrier, originalRobotToArmRotator;
 
     List<SimMechanism> mechanisms;
 
@@ -36,30 +36,46 @@ public class Reefscape2025 extends SimBaseRobot {
                 new Transform3d(Meters.of(0), Meters.of(0), Meters.of(0), new Rotation3d()),
                 new Translation3d(0, 0, 1), // Elevator moves on this axis
                 "elevator",
-                DCMotor.getFalcon500(1),
-                9.0,
+                DCMotor.getFalcon500(2),
+                5.6,
                 Kilograms.of(0.5),
                 Meters.of(0.1),
                 Meters.of(0.0),
-                Meters.of(1.0),
+                Meters.of(1.05),
                 Meters.of(0.0),
+                2,
                 false);
 
-        originalRobotToArm = new Transform3d(Meters.of(0.1), Meters.of(0), Meters.of(0.5), new Rotation3d());
-        arm = new Arm(this,
-                new Transform3d(Meters.of(0.1), Meters.of(0), Meters.of(0.5), new Rotation3d()),
+        originalRobotToArmCarrier = new Transform3d(Meters.of(0.06), Meters.of(-0.005), Meters.of(0.235), new Rotation3d());
+        armCarrier = new Arm(this,
+                new Transform3d(originalRobotToArmCarrier.getMeasureX(), originalRobotToArmCarrier.getMeasureY(), originalRobotToArmCarrier.getMeasureZ(), originalRobotToArmCarrier.getRotation()),
                 new Rotation3d(1, 0, 0), // Arm rotations around this axis
                 "arm",
-                DCMotor.getFalcon500(1),
-                40.0,
-                1.0, 
+                DCMotor.getFalcon500(2),
+                63.0,
+                1.0,
                 Meters.of(1),
+                Degrees.of(-90), // -999
+                Degrees.of(90.0), // 999
                 Degrees.of(0.0),
-                Degrees.of(180.0),
-                Degrees.of(0.0),
+                false,
                 false);
 
-        mechanisms = List.of(elevator, arm);
+        originalRobotToArmRotator = new Transform3d(Meters.of(-0.0075), Meters.of(-0.00), Meters.of(0.0), new Rotation3d());
+        armRotator = new Arm(this,
+                new Transform3d(originalRobotToArmRotator.getMeasureX(), originalRobotToArmRotator.getMeasureY(), originalRobotToArmRotator.getMeasureZ(), originalRobotToArmRotator.getRotation()),
+                new Rotation3d(0, 0, 1), // Arm rotations around this axis
+                "arm_rotator",
+                DCMotor.getNeo550(1),
+                25.0,
+                1.0,
+                Meters.of(1),
+                Degrees.of(-90), // -999
+                Degrees.of(90.0), // 999
+                Degrees.of(0.0),
+                false,
+                false);
+        mechanisms = List.of(elevator, armCarrier, armRotator);
     }
 
     @Override
@@ -67,8 +83,13 @@ public class Reefscape2025 extends SimBaseRobot {
         driveTrain.Update();
         mechanisms.forEach(mech -> mech.Update());
 
-        // Arm is attached to end of elevator, so we need to update the arm's transform
-        arm.SetRobotToMechanism(new Transform3d(originalRobotToArm.getTranslation(), originalRobotToArm.getRotation()).plus(new Transform3d(elevator.GetPose3d().getTranslation(), elevator.GetPose3d().getRotation())));
+        // Update the arm's position based on the elevator's position
+        Pose3d elevatorPose = elevator.GetPoses3d().get(0);
+        armCarrier.SetRobotToMechanism(
+                originalRobotToArmCarrier.plus(new Transform3d(elevatorPose.getTranslation(), new Rotation3d())));
+
+        Pose3d carrierPose = armCarrier.GetPoses3d().get(0);
+        armRotator.SetRobotToMechanism(originalRobotToArmRotator.plus(new Transform3d(carrierPose.getTranslation(), carrierPose.getRotation())));
     }
 
     @Override
