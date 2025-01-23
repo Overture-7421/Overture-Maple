@@ -46,7 +46,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 2,
                 false);
 
-        originalRobotToArmCarrier = new Transform3d(Meters.of(0.06), Meters.of(-0.005), Meters.of(0.235), new Rotation3d());
+        originalRobotToArmCarrier = new Transform3d(Meters.of(0.06), Meters.of(-0.005), Meters.of(0.12), new Rotation3d());
         armCarrier = new Arm(this,
                 new Transform3d(originalRobotToArmCarrier.getMeasureX(), originalRobotToArmCarrier.getMeasureY(), originalRobotToArmCarrier.getMeasureZ(), originalRobotToArmCarrier.getRotation()),
                 new Rotation3d(1, 0, 0), // Arm rotations around this axis
@@ -58,10 +58,11 @@ public class Reefscape2025 extends SimBaseRobot {
                 Degrees.of(-90), // -999
                 Degrees.of(90.0), // 999
                 Degrees.of(0.0),
+                
                 false,
                 false);
 
-        originalRobotToArmRotator = new Transform3d(Meters.of(-0.0075), Meters.of(-0.00), Meters.of(0.0), new Rotation3d());
+        originalRobotToArmRotator = new Transform3d(Meters.of(0.03), Meters.of(-0.00), Meters.of(0.0), new Rotation3d());
         armRotator = new Arm(this,
                 new Transform3d(originalRobotToArmRotator.getMeasureX(), originalRobotToArmRotator.getMeasureY(), originalRobotToArmRotator.getMeasureZ(), originalRobotToArmRotator.getRotation()),
                 new Rotation3d(0, 0, 1), // Arm rotations around this axis
