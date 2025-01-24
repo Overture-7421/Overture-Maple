@@ -23,15 +23,18 @@ import overture.sim.swerve.SwerveChassis;
 public class Reefscape2025 extends SimBaseRobot {
     SwerveChassis driveTrain;
     Elevator elevator;
-    Arm armCarrier, armRotator;
-    Transform3d originalRobotToArmCarrier, originalRobotToArmRotator;
+    Arm armCarrier, armRotator, armDracula;
+    Transform3d originalRobotToArmCarrier, originalRobotToArmRotator, originalRobotToArmDracula;
 
     List<SimMechanism> mechanisms;
 
     public Reefscape2025(String name, Pose2d startingPose) {
         super(name, startingPose);
 
+        // Drivertain
         driveTrain = new SwerveChassis(this, startingPose, Constants.Swerve2024());
+
+        // Elevator
         elevator = new Elevator(this,
                 new Transform3d(Meters.of(0), Meters.of(0), Meters.of(0), new Rotation3d()),
                 new Translation3d(0, 0, 1), // Elevator moves on this axis
@@ -46,6 +49,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 2,
                 false);
 
+        // Arm Carrier
         originalRobotToArmCarrier = new Transform3d(Meters.of(0.06), Meters.of(-0.005), Meters.of(0.12), new Rotation3d());
         armCarrier = new Arm(this,
                 new Transform3d(originalRobotToArmCarrier.getMeasureX(), originalRobotToArmCarrier.getMeasureY(), originalRobotToArmCarrier.getMeasureZ(), originalRobotToArmCarrier.getRotation()),
@@ -62,13 +66,14 @@ public class Reefscape2025 extends SimBaseRobot {
                 false,
                 false);
 
+        // Arm Rotator
         originalRobotToArmRotator = new Transform3d(Meters.of(0.03), Meters.of(-0.00), Meters.of(0.1), new Rotation3d());
         armRotator = new Arm(this,
     
                 new Transform3d(originalRobotToArmRotator.getMeasureX(), originalRobotToArmRotator.getMeasureY(), originalRobotToArmRotator.getMeasureZ(), originalRobotToArmRotator.getRotation()),
                 new Rotation3d(0, 0, 1), // Arm rotations around this axis
                 "arm_rotator",
-                DCMotor.getNeo550(1),
+                DCMotor.getFalcon500(1),
                 25.0,
                 1.0,
                 Meters.of(1),
@@ -77,7 +82,25 @@ public class Reefscape2025 extends SimBaseRobot {
                 Degrees.of(0.0),
                 false,
                 false);
-        mechanisms = List.of(elevator, armCarrier, armRotator);
+
+        // Arm Dracula
+        originalRobotToArmDracula = new Transform3d(Meters.of(-0.25), Meters.of(0), Meters.of(0.2), new Rotation3d());
+        armDracula = new Arm(this,
+            new Transform3d(originalRobotToArmDracula.getMeasureX(), originalRobotToArmDracula.getMeasureY(), originalRobotToArmDracula.getMeasureZ(), originalRobotToArmDracula.getRotation()),
+            new Rotation3d(0, 1, 0),
+            "dracula_rotator",
+            DCMotor.getFalcon500(2),
+            1.0,
+            1.0,
+            Meters.of(1),
+            Degrees.of(-999.0),
+            Degrees.of(999.0),
+            Degrees.of(0.0),
+            false,
+            true);
+
+        // List of mechanisms
+        mechanisms = List.of(elevator, armCarrier, armRotator, armDracula);
     }
 
     @Override
@@ -92,6 +115,7 @@ public class Reefscape2025 extends SimBaseRobot {
 
         Pose3d carrierPose = armCarrier.GetPoses3d().get(0);
         armRotator.SetRobotToMechanism(originalRobotToArmRotator.plus(new Transform3d(carrierPose.getTranslation(), carrierPose.getRotation())));
+
     }
 
     @Override
