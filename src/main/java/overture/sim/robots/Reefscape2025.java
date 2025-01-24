@@ -90,7 +90,7 @@ public class Reefscape2025 extends SimBaseRobot {
             new Rotation3d(0, 1, 0),
             "climber",
             DCMotor.getFalcon500(2),
-            1.0,
+            200.0,
             1.0,
             Meters.of(1),
             Degrees.of(-999.0),
