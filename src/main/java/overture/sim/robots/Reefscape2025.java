@@ -39,7 +39,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 new Transform3d(Meters.of(0), Meters.of(0), Meters.of(0), new Rotation3d()),
                 new Translation3d(0, 0, 1), // Elevator moves on this axis
                 "elevator",
-                DCMotor.getFalcon500(2),
+                DCMotor.getKrakenX60(2),
                 5.6,
                 Kilograms.of(0.5),
                 Meters.of(0.1),
@@ -55,7 +55,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 new Transform3d(originalRobotToArmCarrier.getMeasureX(), originalRobotToArmCarrier.getMeasureY(), originalRobotToArmCarrier.getMeasureZ(), originalRobotToArmCarrier.getRotation()),
                 new Rotation3d(1, 0, 0), // Arm rotations around this axis
                 "arm",
-                DCMotor.getFalcon500(2),
+                DCMotor.getKrakenX60(2),
                 63.0,
                 1.0,
                 Meters.of(1),
@@ -73,7 +73,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 new Transform3d(originalRobotToArmRotator.getMeasureX(), originalRobotToArmRotator.getMeasureY(), originalRobotToArmRotator.getMeasureZ(), originalRobotToArmRotator.getRotation()),
                 new Rotation3d(0, 0, 1), // Arm rotations around this axis
                 "arm_rotator",
-                DCMotor.getFalcon500(1),
+                DCMotor.getKrakenX60(1),
                 25.0,
                 1.0,
                 Meters.of(1),
@@ -89,7 +89,7 @@ public class Reefscape2025 extends SimBaseRobot {
             new Transform3d(originalRobotToArmClimber.getMeasureX(), originalRobotToArmClimber.getMeasureY(), originalRobotToArmClimber.getMeasureZ(), originalRobotToArmClimber.getRotation()),
             new Rotation3d(0, 1, 0),
             "climber",
-            DCMotor.getFalcon500(2),
+            DCMotor.getKrakenX60(2),
             200.0,
             1.0,
             Meters.of(1),
