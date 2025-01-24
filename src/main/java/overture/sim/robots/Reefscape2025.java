@@ -23,8 +23,8 @@ import overture.sim.swerve.SwerveChassis;
 public class Reefscape2025 extends SimBaseRobot {
     SwerveChassis driveTrain;
     Elevator elevator;
-    Arm armCarrier, armRotator, armDracula;
-    Transform3d originalRobotToArmCarrier, originalRobotToArmRotator, originalRobotToArmDracula;
+    Arm armCarrier, armRotator, armClimber;
+    Transform3d originalRobotToArmCarrier, originalRobotToArmRotator, originalRobotToArmClimber;
 
     List<SimMechanism> mechanisms;
 
@@ -83,12 +83,12 @@ public class Reefscape2025 extends SimBaseRobot {
                 false,
                 false);
 
-        // Arm Dracula
-        originalRobotToArmDracula = new Transform3d(Meters.of(-0.25), Meters.of(0), Meters.of(0.2), new Rotation3d());
-        armDracula = new Arm(this,
-            new Transform3d(originalRobotToArmDracula.getMeasureX(), originalRobotToArmDracula.getMeasureY(), originalRobotToArmDracula.getMeasureZ(), originalRobotToArmDracula.getRotation()),
+        // Arm Climber
+        originalRobotToArmClimber = new Transform3d(Meters.of(-0.25), Meters.of(0), Meters.of(0.2), new Rotation3d());
+        armClimber = new Arm(this,
+            new Transform3d(originalRobotToArmClimber.getMeasureX(), originalRobotToArmClimber.getMeasureY(), originalRobotToArmClimber.getMeasureZ(), originalRobotToArmClimber.getRotation()),
             new Rotation3d(0, 1, 0),
-            "dracula_rotator",
+            "climber",
             DCMotor.getFalcon500(2),
             1.0,
             1.0,
@@ -100,7 +100,7 @@ public class Reefscape2025 extends SimBaseRobot {
             true);
 
         // List of mechanisms
-        mechanisms = List.of(elevator, armCarrier, armRotator, armDracula);
+        mechanisms = List.of(elevator, armCarrier, armRotator, armClimber);
     }
 
     @Override
