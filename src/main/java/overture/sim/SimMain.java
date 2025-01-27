@@ -25,6 +25,10 @@ public class SimMain {
 	static SimBaseRobot robot = null;
 
 	NetworkTableListener autoLoad = null;
+	NetworkTableListener fmsControlDataListener = null;
+	
+	static private boolean autoHasBeenReset = false;
+	static private boolean robotEnabled = false;
 
 	public void Initialize(LoggedRobot loggedRobot) {
 		// Mechanisms
@@ -44,12 +48,22 @@ public class SimMain {
 		autoLoad = NetworkTableListener.createListener(
 				NetworkTableInstance.getDefault().getStringTopic("/PathPlanner/activePath"),
 				EnumSet.of(NetworkTableEvent.Kind.kValueRemote), SimMain::handleAutoChange);
+
+		fmsControlDataListener = NetworkTableListener.createListener(
+			NetworkTableInstance.getDefault().getStringTopic("/FMSInfo/FMSControlData"),
+			EnumSet.of(NetworkTableEvent.Kind.kValueRemote), SimMain::handleFmsDataChange);
 	}
 
 	static public void handleAutoChange(NetworkTableEvent event) {
 		try {
+			if(robotEnabled && autoHasBeenReset) {
+				return;
+			}
+			autoHasBeenReset = true;
+			System.out.println("Reset robot pose!");
 			StructArraySubscriber<Pose2d> initPoseArray = event.getInstance().getTable("PathPlanner")
 					.getStructArrayTopic("activePath", Pose2d.struct).subscribe(new Pose2d[1]);
+					
 			Pose2d initPose = initPoseArray.get()[0];
 
 			robot.GetDriveTrain().setSimulationWorldPose(initPose);
@@ -60,8 +74,20 @@ public class SimMain {
 			DriverStation.reportError("Can't update robot Pose2d", false);
 		}
 	}
+	static public void handleFmsDataChange(NetworkTableEvent event) {
+		long code = event.valueData.value.getInteger();
+		System.out.println("FMS Control Data: " + code);
+		robotEnabled = code > 0 && code != 32;
+
+		if(!robotEnabled) {
+			autoHasBeenReset = false;
+		}
+	}
 
 	public void Periodic() {
+		Logger.recordOutput("FieldSimulation/RobotEnabled", robotEnabled);
+		Logger.recordOutput("FieldSimulation/AutoHasBeenReset", autoHasBeenReset);
+
 		arena.simulationPeriodic();
 		robot.Update();
 
