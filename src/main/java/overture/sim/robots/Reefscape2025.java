@@ -17,14 +17,16 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import overture.sim.mechanisms.SimMechanism;
 import overture.sim.mechanisms.arm.Arm;
 import overture.sim.mechanisms.elevator.Elevator;
+import overture.sim.mechanisms.flywheel.Flywheel;
 import overture.sim.swerve.Constants;
 import overture.sim.swerve.SwerveChassis;
 
 public class Reefscape2025 extends SimBaseRobot {
     SwerveChassis driveTrain;
     Elevator elevator;
-    Arm armCarrier, armRotator, armClimber;
-    Transform3d originalRobotToArmCarrier, originalRobotToArmRotator, originalRobotToArmClimber;
+    Arm armCarrier, armRotator, armClimber, intakeRotator;
+    Flywheel intakeWheels;
+    Transform3d originalRobotToArmCarrier, originalRobotToArmRotator, originalRobotToArmClimber, originalRobotToIntake, originalRobotToIntakeRotator;
 
     List<SimMechanism> mechanisms;
 
@@ -83,6 +85,22 @@ public class Reefscape2025 extends SimBaseRobot {
                 false,
                 false);
 
+        // Intake Rotator
+        originalRobotToIntakeRotator = new Transform3d(Meters.of(0.095), Meters.of(0.0), Meters.of(0.745), new Rotation3d());
+        intakeRotator = new Arm(this,
+                new Transform3d(originalRobotToIntakeRotator.getMeasureX(), originalRobotToIntakeRotator.getMeasureY(), originalRobotToIntakeRotator.getMeasureZ(), originalRobotToIntakeRotator.getRotation()),
+                new Rotation3d(0, 1, 0), // Arm rotations around this axis
+                "intake_rotator",
+                DCMotor.getKrakenX60(1),
+                25.0,
+                1.0,
+                Meters.of(1),
+                Degrees.of(-999), // -999
+                Degrees.of(999.0), // 999
+                Degrees.of(0.0),
+                false,
+                false);
+
         // Arm Climber
         originalRobotToArmClimber = new Transform3d(Meters.of(-0.25), Meters.of(0), Meters.of(0.2), new Rotation3d());
         armClimber = new Arm(this,
@@ -99,8 +117,23 @@ public class Reefscape2025 extends SimBaseRobot {
             false,
             true);
 
+        // Intake Wheels
+        originalRobotToIntake = new Transform3d(Meters.of(0.09), Meters.of(0.0), Meters.of(1.01), new Rotation3d());
+        intakeWheels = new Flywheel(this,
+                new Transform3d(originalRobotToIntake.getMeasureX(), originalRobotToIntake.getMeasureY(), originalRobotToIntake.getMeasureZ(), originalRobotToIntake.getRotation()),
+                new Rotation3d(0, 1, 0), // Flywheel rotates around this axis
+                "intake",
+                DCMotor.getKrakenX60(1),
+                1.0,
+                1.0,
+                Degrees.of(-999.0),
+                Degrees.of(999.0),
+                Degrees.of(0.0),
+                false,
+                false);
+
         // List of mechanisms
-        mechanisms = List.of(elevator, armCarrier, armRotator, armClimber);
+        mechanisms = List.of(elevator, armCarrier, armRotator, intakeRotator, armClimber, intakeWheels);
     }
 
     @Override
