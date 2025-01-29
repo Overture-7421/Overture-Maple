@@ -11,19 +11,12 @@ import java.util.List;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.math.numbers.N1;
-import edu.wpi.first.math.proto.Plant;
-import edu.wpi.first.math.system.LinearSystem;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
-import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.units.measure.Distance;
 import overture.sim.NTMotor;
 import overture.sim.mechanisms.SimMechanism;
 import overture.sim.robots.SimBaseRobot;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
-import edu.wpi.first.wpilibj.simulation.LinearSystemSim;
-import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 
 /**
  * Simulates a flywheel mechanism
@@ -74,11 +67,12 @@ public class Flywheel extends SimMechanism {
           });
     }
 
-    @Override
     public void Update() {
-        flywheelSim.update(GetTimeStep());
+
+        double timeStep = GetTimeStep();
+        flywheelSim.update(timeStep);
         motor.Update();
-        double deltaAngle = flywheelSim.getAngularVelocityRadPerSec() * GetTimeStep();
+        double deltaAngle = flywheelSim.getAngularVelocityRadPerSec() * timeStep;
 
         angle += deltaAngle;
     }
