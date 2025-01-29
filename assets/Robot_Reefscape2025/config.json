@@ -85,7 +85,7 @@
             ]
         },
         {
-            "_comment": "Intake Rotator",
+            "_comment": "Arm Rotator",
             "zeroedRotations": [
                 {
                     "axis": "x",

@@ -84,7 +84,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 false);
 
         // Intake Rotator
-        originalRobotToIntakeRotator = new Transform3d(Meters.of(-0.0), Meters.of(-0.27), Meters.of(0.77), new Rotation3d());
+        originalRobotToIntakeRotator = new Transform3d(Meters.of(0.03), Meters.of(0.1), Meters.of(0.24), new Rotation3d());
         intakeRotator = new Arm(this,
                 new Transform3d(originalRobotToIntakeRotator.getMeasureX(), originalRobotToIntakeRotator.getMeasureY(), originalRobotToIntakeRotator.getMeasureZ(), originalRobotToIntakeRotator.getRotation()),
                 new Rotation3d(1, 0, 0), // Intake rotations around this axis
@@ -116,20 +116,16 @@ public class Reefscape2025 extends SimBaseRobot {
             true);
 
         // Intake Wheels
-        originalRobotToIntake = new Transform3d(Meters.of(0.0), Meters.of(0.105), Meters.of(1.02
-        ), new Rotation3d());
+        originalRobotToIntake = new Transform3d(Meters.of(0.0), Meters.of(0.105), Meters.of(0.24), new Rotation3d());
         intakeWheels = new Flywheel(this,
                 new Transform3d(originalRobotToIntake.getMeasureX(), originalRobotToIntake.getMeasureY(), originalRobotToIntake.getMeasureZ(), originalRobotToIntake.getRotation()),
                 new Rotation3d(1, 0, 0), // Flywheel rotates around this axis
                 "intake",
                 DCMotor.getKrakenX60(1),
-                1.0,
-                1.0,
-                Degrees.of(-999.0),
-                Degrees.of(999.0),
-                Degrees.of(0.0),
+                50.0,
+                0.1,
                 false,
-                false);
+                true);
 
         // List of mechanisms
         mechanisms = List.of(elevator, armCarrier, armRotator, intakeRotator, armClimber, intakeWheels);
@@ -139,37 +135,78 @@ public class Reefscape2025 extends SimBaseRobot {
     public void Update() {
         driveTrain.Update();
         mechanisms.forEach(mech -> mech.Update());
-
-        // Update the arm's position based on the elevator's position
+    
+        // Actualizar la posición del brazo con base en el elevador
         Pose3d elevatorPose = elevator.GetPoses3d().get(0);
         armCarrier.SetRobotToMechanism(
                 originalRobotToArmCarrier.plus(new Transform3d(elevatorPose.getTranslation(), new Rotation3d())));
+        
+        // Actualizar la posición del brazo rotador con base en el brazo
         Pose3d carrierPose = armCarrier.GetPoses3d().get(0);
         armRotator.SetRobotToMechanism(
             originalRobotToArmRotator.plus(new Transform3d(carrierPose.getTranslation(), carrierPose.getRotation())));
 
 
+
+
+
+
         // Update the intake's position based on the arm's position
-        double armRotatorAngle = armRotator.GetPoses3d().get(0).getRotation().getAngle(); // Angulo
-        double armLength = 0.4; // Longitud INVENTADA
-
-
+        double armCarrierAngle = armCarrier.GetAngle();
+        double armLength = 0.52; // Assuming this is the arm's length (r)
 
         // Convert polar to rectangular
-        double intakeX = armRotator.GetPoses3d().get(0).getTranslation().getX(); 
-        double intakeY = armLength * Math.cos(armRotatorAngle); // Y = r * cos(θ)
-        double intakeZ = armLength * Math.sin(armRotatorAngle); // Z = r * sin(θ)
+        double intakeX = armLength * Math.sin(armCarrierAngle); // x = r * cos(θ)
+        double intakeZ = armLength * Math.cos(armCarrierAngle); // y = r * sin(θ)
 
-
+        // Update the intakes rotation based on the arm's rotator
+        double armRotatorAngleX = armRotator.GetPoses3d().get(0).getRotation().getX(); // Angle in radians
+        double armRotatorAngleY = armRotator.GetPoses3d().get(0).getRotation().getY(); // Angle in radians
+        double armRotatorAngleZ = armRotator.GetPoses3d().get(0).getRotation().getZ(); // Angle in radians
+    
         // Create new Pose3d for intakeRotator
         Pose3d armRotatorPose = new Pose3d(
-            new Translation3d(intakeX, intakeY, intakeZ), 
-            new Rotation3d()    
+            new Translation3d(intakeX, 0, intakeZ + elevatorPose.getTranslation().getZ()), 
+            new Rotation3d(armRotatorAngleX, armRotatorAngleY, armRotatorAngleZ)
         );
+
+        // Update the intake's position
         intakeRotator.SetRobotToMechanism(
             originalRobotToIntakeRotator.plus(new Transform3d(armRotatorPose.getTranslation(), armRotatorPose.getRotation())));
-    }
 
+
+
+
+
+
+
+
+
+            
+        // Update the wheels position based on the arm's position
+        double armCarrierAngleWheelsAngle = armCarrier.GetAngle();
+        double armLengthWheels = 0.78; // Assuming this is the arm's length (r)
+
+        // Convert polar to rectangular
+        double wheelsX = armLengthWheels * Math.sin(armCarrierAngleWheelsAngle); // x = r * cos(θ)
+        double wheelsZ = armLengthWheels * Math.cos(armCarrierAngleWheelsAngle); // y = r * sin(θ)
+
+        // Update the wheels rotation based on the arm's rotator
+        double armRotatorAngleWheelX = armRotator.GetPoses3d().get(0).getRotation().getX(); // Angle in radians
+        double armRotatorAngleWheelY = armRotator.GetPoses3d().get(0).getRotation().getY(); // Angle in radians
+        double armRotatorAngleWheelZ = armRotator.GetPoses3d().get(0).getRotation().getZ(); // Angle in radians
+    
+        // Create new Pose3d for wheels
+        Pose3d armRotatorPoseWheels = new Pose3d(
+            new Translation3d(wheelsX, 0, wheelsZ + elevatorPose.getTranslation().getZ()), 
+            new Rotation3d(armRotatorAngleWheelX, armRotatorAngleWheelY, armRotatorAngleWheelZ)
+        );
+
+        // Update the wheels position
+        intakeWheels.SetRobotToMechanism(
+            originalRobotToIntake.plus(new Transform3d(armRotatorPoseWheels.getTranslation(), armRotatorPoseWheels.getRotation())));
+    }
+    
     @Override
     public AbstractDriveTrainSimulation GetDriveTrain() {
         return driveTrain;

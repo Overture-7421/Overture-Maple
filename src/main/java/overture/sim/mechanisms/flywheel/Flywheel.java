@@ -55,9 +55,6 @@ public class Flywheel extends SimMechanism {
             DCMotor gearbox,
             double gearing,
             double jMomentofIntertia,
-            Angle minAngle,
-            Angle maxAngle,
-            Angle startingAngle,
             boolean gravity,
             boolean inverted) {
         super(new Transform3d(robotToWheel.getTranslation(), robotToWheel.getRotation()));
