@@ -52,7 +52,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 false);
 
         // Arm Carrier
-        originalRobotToArmCarrier = new Transform3d(Meters.of(0.0), Meters.of(0.1), Meters.of(0.24), new Rotation3d());
+        originalRobotToArmCarrier = new Transform3d(Meters.of(0.0), Meters.of(0.1), Meters.of(0.235), new Rotation3d());
         armCarrier = new Arm(this,
                 new Transform3d(originalRobotToArmCarrier.getMeasureX(), originalRobotToArmCarrier.getMeasureY(), originalRobotToArmCarrier.getMeasureZ(), originalRobotToArmCarrier.getRotation()),
                 new Rotation3d(0, 1, 0), // Arm rotations around this axis
@@ -68,7 +68,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 false);
 
         // Arm Rotator
-        originalRobotToArmRotator = new Transform3d(Meters.of(0.0), Meters.of(0.01), Meters.of(0.0), new Rotation3d());
+        originalRobotToArmRotator = new Transform3d(Meters.of(0.0), Meters.of(-0.001), Meters.of(0.0), new Rotation3d());
         armRotator = new Arm(this,
                 new Transform3d(originalRobotToArmRotator.getMeasureX(), originalRobotToArmRotator.getMeasureY(), originalRobotToArmRotator.getMeasureZ(), originalRobotToArmRotator.getRotation()),
                 new Rotation3d(0, 0, 1), // Arm rotations around this axis
@@ -84,7 +84,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 false);
 
         // Intake Rotator
-        originalRobotToIntakeRotator = new Transform3d(Meters.of(0.03), Meters.of(0.185), Meters.of(0.245), new Rotation3d());
+        originalRobotToIntakeRotator = new Transform3d(Meters.of(0.03), Meters.of(0.186), Meters.of(0.2435), new Rotation3d());
         intakeRotator = new Arm(this,
                 new Transform3d(originalRobotToIntakeRotator.getMeasureX(), originalRobotToIntakeRotator.getMeasureY(), originalRobotToIntakeRotator.getMeasureZ(), originalRobotToIntakeRotator.getRotation()),
                 new Rotation3d(1, 0, 0), // Intake rotations around this axis
@@ -100,7 +100,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 false);
 
         // Arm Climber
-        originalRobotToArmClimber = new Transform3d(Meters.of(0), Meters.of(-0.25), Meters.of(0.2), new Rotation3d());
+        originalRobotToArmClimber = new Transform3d(Meters.of(0), Meters.of(-0.245), Meters.of(0.193), new Rotation3d());
         armClimber = new Arm(this,
             new Transform3d(originalRobotToArmClimber.getMeasureX(), originalRobotToArmClimber.getMeasureY(), originalRobotToArmClimber.getMeasureZ(), originalRobotToArmClimber.getRotation()),
             new Rotation3d(1, 0, 0), // Arm rotations around this axis
@@ -116,14 +116,14 @@ public class Reefscape2025 extends SimBaseRobot {
             true);
 
         // Intake Wheels
-        originalRobotToIntake = new Transform3d(Meters.of(0.0), Meters.of(0.185), Meters.of(0.24), new Rotation3d());
+        originalRobotToIntake = new Transform3d(Meters.of(0.0), Meters.of(0.185), Meters.of(0.245), new Rotation3d());
         intakeWheels = new Flywheel(this,
                 new Transform3d(originalRobotToIntake.getMeasureX(), originalRobotToIntake.getMeasureY(), originalRobotToIntake.getMeasureZ(), originalRobotToIntake.getRotation()),
                 new Rotation3d(1, 0, 0), // Flywheel rotates around this axis
                 "intake",
                 DCMotor.getKrakenX60(1),
                 2.25,
-                0.001,
+                1,
                 false,
                 true);
 
