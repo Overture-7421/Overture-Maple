@@ -23,12 +23,12 @@ public class Constants {
                 Volts.of(0.01),
                 Inches.of(2),
                 KilogramSquareMeters.of(0.03),
-                COTS.WHEELS.COLSONS.cof);
+                COTS.WHEELS.SLS_PRINTED_WHEELS.cof);
     }
 
     public static DriveTrainSimulationConfig Swerve2024() {
         return DriveTrainSimulationConfig.Default()
-                .withRobotMass(Kilograms.of(45))
+                .withRobotMass(Kilograms.of(61.235))
                 .withGyro(COTS.ofPigeon2())
                 .withSwerveModule(Overture2024MK4i())
                 .withCustomModuleTranslations(new Translation2d[] {
