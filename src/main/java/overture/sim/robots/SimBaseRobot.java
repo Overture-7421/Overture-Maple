@@ -1,6 +1,5 @@
 package overture.sim.robots;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public abstract class SimBaseRobot {
         ArrayList<Pose3d> poses = new ArrayList<>();
         
         for (SimMechanism mechanism : GetMechanisms()) {
-            for (Pose3d pose : mechanism.GetPoses3d()) {
+            for (int i = 0; i < mechanism.GetPoses3d().size(); i++) {
                 poses.add(new Pose3d());
             }
         }

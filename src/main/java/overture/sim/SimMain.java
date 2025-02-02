@@ -12,11 +12,9 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.struct.Pose2dStruct;
 import edu.wpi.first.networktables.NetworkTableEvent;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableListener;
-import edu.wpi.first.networktables.StructArraySubscriber;
 import edu.wpi.first.wpilibj.DriverStation;
 import overture.sim.robots.Reefscape2025;
 import overture.sim.robots.SimBaseRobot;
@@ -36,7 +34,6 @@ public class SimMain {
 		SimulatedArena.overrideSimulationTimings(Seconds.of(loggedRobot.getPeriod()), 50);
 		arena = SimulatedArena.getInstance();
 
-
 		arena.resetFieldForAuto();
 
 		// Add mechanisms to Arena
@@ -50,7 +47,8 @@ public class SimMain {
 	static public void handlePathPlannerPoseReset(NetworkTableEvent event) {
 		try {
 			System.out.println("Reset robot pose!");
-			Pose2d resetPose = NetworkTableInstance.getDefault().getStructTopic("/PathPlanner/ResetPose", Pose2d.struct).subscribe(new Pose2d()).get();
+			Pose2d resetPose = NetworkTableInstance.getDefault().getStructTopic("/PathPlanner/ResetPose", Pose2d.struct)
+					.subscribe(new Pose2d()).get();
 
 			Logger.recordOutput("FieldSimulation/AutoPose", resetPose);
 			robot.GetDriveTrain().setSimulationWorldPose(resetPose);
