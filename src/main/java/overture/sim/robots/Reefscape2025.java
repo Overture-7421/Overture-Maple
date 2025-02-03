@@ -58,7 +58,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 new Rotation3d(0, 1, 0), // Arm rotations around this axis
                 "arm",
                 DCMotor.getKrakenX60(2),
-                63.0,
+                80.88888,
                 1.0,
                 Meters.of(1),
                 Degrees.of(-999), // -999
@@ -74,7 +74,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 new Rotation3d(0, 0, 1), // Arm rotations around this axis
                 "arm_rotator",
                 DCMotor.getKrakenX60(1),
-                25.0,
+                27.0,
                 1.0,
                 Meters.of(1),
                 Degrees.of(-999), // -999
@@ -90,7 +90,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 new Rotation3d(1, 0, 0), // Intake rotations around this axis
                 "intake_rotator",
                 DCMotor.getKrakenX60(1),
-                25.0,
+                1.5,
                 1.0,
                 Meters.of(1),
                 Degrees.of(-999), // -999
