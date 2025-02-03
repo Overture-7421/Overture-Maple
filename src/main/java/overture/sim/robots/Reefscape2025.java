@@ -91,7 +91,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 "intake_rotator",
                 DCMotor.getKrakenX60(1),
                 1.5,
-                1.0,
+                0.0001,
                 Meters.of(1),
                 Degrees.of(-999), // -999
                 Degrees.of(999.0), // 999
@@ -123,7 +123,7 @@ public class Reefscape2025 extends SimBaseRobot {
                 "intake",
                 DCMotor.getKrakenX60(1),
                 2.25,
-                1,
+                0.01,
                 false,
                 true);
 
