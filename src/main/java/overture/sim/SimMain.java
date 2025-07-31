@@ -28,6 +28,8 @@ public class SimMain {
 	public void Initialize(LoggedRobot loggedRobot) {
 		// Mechanisms
 		robot = new Reefscape2025("Reefscape2025", new Pose2d(3, 3, new Rotation2d()));
+		robot = new Reefscape2025("DaytonaOffseason", new Pose2d(3, 3, new Rotation2d()));
+
 
 		// Arena
 		SimulatedArena.overrideInstance(new Arena2025Reefscape());

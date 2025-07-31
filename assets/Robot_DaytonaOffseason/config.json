@@ -1,0 +1,180 @@
+{
+    "name": "DaytonaOffseason",
+    "rotations": [
+        {
+            "axis": "x",
+            "degrees": 90
+            
+        },
+        {
+            "axis": "y",
+            "degrees": 0
+        },
+        {
+            "axis": "z",
+            "degrees": 90
+        }
+    ],
+    "position": [
+        0,
+        0,
+        0
+    ],
+    "cameras": [],
+    "components": [
+        { 
+            "_comment": "Elevator Carriage",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                -0.105,
+                0,
+                -0.135
+            ]
+        },
+        { 
+            "_comment": "Elevator Frame",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                -0.105,
+                0,
+                -0.11
+            ]
+        },
+        { 
+            "_comment": "Arm",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                -0.027,
+                -0.006,
+                -0.305
+            ]
+        },
+        { 
+            "_comment": "Arm Wheels",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                0.24,
+                0.04,
+                -0.86
+            ]
+        },
+        { 
+            "_comment": "Intake",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 270
+                }
+            ],
+            "zeroedPosition": [
+                -0.25,
+                0,
+                -0.147
+            ]
+        },
+        { 
+            "_comment": "Inner Wheels",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 0
+                }
+            ],
+            "zeroedPosition": [
+                0.25,
+                -0.365,
+                -0.26
+            ]
+        },
+        { 
+            "_comment": "Intake Wheels",
+            "zeroedRotations": [
+                {
+                    "axis": "x",
+                    "degrees": 90
+                },
+                {
+                    "axis": "y",
+                    "degrees": 0
+                },
+                {
+                    "axis": "z",
+                    "degrees": 90
+                }
+            ],
+            "zeroedPosition": [
+                0.088,
+                0,
+                -0.408
+            ]
+        }
+    ]
+}
