@@ -16,6 +16,7 @@ import edu.wpi.first.networktables.NetworkTableEvent;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableListener;
 import edu.wpi.first.wpilibj.DriverStation;
+import overture.sim.robots.DaytonaOffseason;
 import overture.sim.robots.Reefscape2025;
 import overture.sim.robots.SimBaseRobot;
 
@@ -27,8 +28,8 @@ public class SimMain {
 
 	public void Initialize(LoggedRobot loggedRobot) {
 		// Mechanisms
-		robot = new Reefscape2025("Reefscape2025", new Pose2d(3, 3, new Rotation2d()));
-		robot = new Reefscape2025("DaytonaOffseason", new Pose2d(3, 3, new Rotation2d()));
+		//robot = new Reefscape2025("Reefscape2025", new Pose2d(3, 3, new Rotation2d()));
+		robot = new DaytonaOffseason("DaytonaOffseason", new Pose2d(3, 3, new Rotation2d()));
 
 
 		// Arena
