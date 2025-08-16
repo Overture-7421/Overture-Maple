@@ -105,9 +105,9 @@
                 }
             ],
             "zeroedPosition": [
-                0.24,
+                0.241,
                 0.04,
-                -0.86
+                -0.8565
             ]
         },
         { 
@@ -123,17 +123,17 @@
                 },
                 {
                     "axis": "z",
-                    "degrees": 270
+                    "degrees": 90
                 }
             ],
             "zeroedPosition": [
-                -0.25,
+                0.25,
                 0,
                 -0.147
             ]
         },
         { 
-            "_comment": "Inner Wheels",
+            "_comment": "Center Wheels",
             "zeroedRotations": [
                 {
                     "axis": "x",
@@ -141,17 +141,17 @@
                 },
                 {
                     "axis": "y",
-                    "degrees": 0
+                    "degrees": 270
                 },
                 {
                     "axis": "z",
-                    "degrees": 0
+                    "degrees": 180
                 }
             ],
             "zeroedPosition": [
-                0.25,
-                -0.365,
-                -0.26
+                -0.25,
+                0.36,
+                0.25
             ]
         },
         { 
