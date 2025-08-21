@@ -99,7 +99,7 @@ public class DaytonaOffseason extends SimBaseRobot {
                 false);
 
         // Intake wheels to center (Flywheel)
-        originalRobotToCenterWheels = new Transform3d(Meters.of(-0.16), Meters.of(0.17), Meters.of(0.050), new Rotation3d());
+        originalRobotToCenterWheels = new Transform3d(Meters.of(0), Meters.of(0), Meters.of(0.0), new Rotation3d());
         centerWheels = new Flywheel(this,
                 new Transform3d(originalRobotToCenterWheels.getMeasureX(), originalRobotToCenterWheels.getMeasureY(), originalRobotToCenterWheels.getMeasureZ(), originalRobotToCenterWheels.getRotation()),
                 new Rotation3d(1, 0, 0), // Flywheel rotates around this axis
@@ -158,7 +158,7 @@ public void Update() {
     // CENTER WHEELS
     // Update the arm wheels' position based on the arm's position
     double intakeAngle = intake.GetAngle();
-    double intakeLenght = 0.235; // Assuming this is the arm's length (r)
+    double intakeLenght = 0.15; // Assuming this is the arm's length (r)
 
     // Convert polar to rectangular
     double intakeX = intakeLenght * Math.sin(intakeAngle); // x = r * cos(θ)
@@ -171,34 +171,18 @@ public void Update() {
 
     // Create new Pose3d for armWheels
     Pose3d centerWheelsPose = new Pose3d(
-        new Translation3d(intakeX, 0, intakeZ), 
+        new Translation3d(intakeX - 0.24,0, intakeZ + 0.15
+        ), 
         new Rotation3d(intakeAngleX, intakeAngleY, intakeAngleZ)
     );
 
     // Update the Arm Wheels' position
+
     centerWheels.SetRobotToMechanism(
         originalRobotToCenterWheels.plus(new Transform3d(centerWheelsPose.getTranslation(), centerWheelsPose.getRotation()))
     );
-
-
-// 0.285
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
 }
 
-    
     @Override
     public AbstractDriveTrainSimulation GetDriveTrain() {
         return driveTrain;
