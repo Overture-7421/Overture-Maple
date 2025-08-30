@@ -25,8 +25,8 @@ public class DaytonaOffseason extends SimBaseRobot {
     SwerveChassis driveTrain;
     Elevator elevator;
     Arm armRotator, intake;
-    Flywheel armWheels, centerWheels;
-    Transform3d originalRobotToArmCarrier, originalRobotToArmRotator, originalRobotToArmWheels, originalRobotToIntake, originalRobotToCenterWheels;
+    Flywheel armWheels, centerWheels, intakeWheels;
+    Transform3d originalRobotToArmCarrier, originalRobotToArmRotator, originalRobotToArmWheels, originalRobotToIntake, originalRobotToCenterWheels, originalRobotToIntakeWheels;
 
     List<SimMechanism> mechanisms;
 
@@ -58,7 +58,7 @@ public class DaytonaOffseason extends SimBaseRobot {
                 new Rotation3d(1, 0, 0), // Arm rotations around this axis
                 "arm_rotator",
                 DCMotor.getKrakenX60(2), //MODIFY
-                80.88888,
+                68.571428,
                 1.0,
                 Meters.of(1),
                 Degrees.of(-999), // -999
@@ -89,7 +89,7 @@ public class DaytonaOffseason extends SimBaseRobot {
                 new Rotation3d(0, 1, 0), // Arm rotations around this axis
                 "intake",
                 DCMotor.getKrakenX60(1),
-                80.88888,
+                86.495726,
                 1.0,
                 Meters.of(1),
                 Degrees.of(-999), // -999
@@ -111,11 +111,26 @@ public class DaytonaOffseason extends SimBaseRobot {
                 true);
 
 
+        // Intake wheels  (Flywheel)
+        originalRobotToIntakeWheels = new Transform3d(Meters.of(0), Meters.of(0), Meters.of(0), new Rotation3d());
+        intakeWheels = new Flywheel(this,
+                new Transform3d(originalRobotToIntakeWheels.getMeasureX(), originalRobotToIntakeWheels.getMeasureY(), originalRobotToIntakeWheels.getMeasureZ(), originalRobotToIntakeWheels.getRotation()),
+                new Rotation3d(0, 1, 0), // Flywheel rotates around this axis
+                "intakeWheels",
+                DCMotor.getKrakenX60(1),
+                2.25,
+                0.01,
+                false,
+                true);
+
+
+
+
 
 
 
         // List of mechanisms
-        mechanisms = List.of(elevator, armRotator, armWheels, intake, centerWheels);
+        mechanisms = List.of(elevator, armRotator, armWheels, intake, centerWheels, intakeWheels);
     }
 
     @Override
@@ -177,10 +192,52 @@ public void Update() {
     );
 
     // Update the Arm Wheels' position
-
     centerWheels.SetRobotToMechanism(
         originalRobotToCenterWheels.plus(new Transform3d(centerWheelsPose.getTranslation(), centerWheelsPose.getRotation()))
     );
+
+
+
+
+
+   // INTAKE WHEELS
+    // Update the arm wheels' position based on the arm's position
+    double mainIntakeAngle = intake.GetAngle();
+    double mainIintakeLenght = 0.3; // Assuming this is the arm's length (r)
+
+    // Convert polar to rectangular
+    double mainIntakeX = mainIintakeLenght * Math.sin(mainIntakeAngle); // x = r * cos(θ)
+    double mainIntakeZ = mainIintakeLenght * Math.cos(mainIntakeAngle);  // y = r * sin(θ)
+
+    // Update the wheels rotation based on the arm's rotator
+    double mainIntakeAngleX = intake.GetPoses3d().get(0).getRotation().getX(); // Angle in radians
+    double mainIntakeAngleY = intake.GetPoses3d().get(0).getRotation().getY(); // Angle in radians
+    double mainIntakeAngleZ = intake.GetPoses3d().get(0).getRotation().getZ(); // Angle in radians
+
+    // Create new Pose3d for armWheels
+    Pose3d intakeWheelsPose = new Pose3d(
+        new Translation3d(mainIntakeX - 0.24,0, mainIntakeZ + 0.15
+        ), 
+        new Rotation3d(mainIntakeAngleX, mainIntakeAngleY, mainIntakeAngleZ)
+    );
+
+    // Update the Arm Wheels' position
+    intakeWheels.SetRobotToMechanism(
+        originalRobotToIntakeWheels.plus(new Transform3d(intakeWheelsPose.getTranslation(), intakeWheelsPose.getRotation()))
+    );
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
     @Override
